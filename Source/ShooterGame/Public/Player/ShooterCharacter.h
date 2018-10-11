@@ -556,7 +556,10 @@ protected:
 	UFUNCTION(reliable, server, withValidation)
 	void ServerSetJetpack(bool bNewJetpack);
 
-	/** update freezei state */
+
+	////////////////////////
+
+	/** update freeze state */
 	UFUNCTION(reliable, server, withValidation)
 	void ServerSetFreeze(bool bNewFreeze);
 
@@ -566,15 +569,15 @@ protected:
 	/* metodo per restituire il vettore da applicare alla forza del walljump*/
 	FVector GetVectorForJump();
 
-
 	/* metodo per saltare sul muro*/
 	UFUNCTION(BlueprintCallable, Category = WallJump)
 	void WallJump();
 
-
+	/* update force on server */
 	UFUNCTION(reliable, server, WithValidation)
 	virtual void ServerAddForce(FVector force);
 
+	/* variabili per modificare l’intensita della forza applicata al salto */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = WallJump)
 		float WallJumpHorHPower;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = WallJump)

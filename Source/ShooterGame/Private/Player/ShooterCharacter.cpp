@@ -1434,10 +1434,11 @@ FVector AShooterCharacter::GetVectorForJump() {
 		FVector Front = GetActorRotation().Vector();
 		FVector Side = FVector::CrossProduct(Front, FVector::UpVector);
 
+		/* linee di debug per vedere la creaziome dei vettori di partenza*/
 		DrawDebugLine(GetWorld(), Start, Start + Front * 200, FColor::Blue, true, 3);
-
 		DrawDebugLine(GetWorld(), Start, Start + Side * 200, FColor::Red, true, 3);
 
+		 /*inizializzo la distanza minima a infinito cosi dopo nel ciclo for trovo il punto piu vicino*/
 		float DisMin = 9999999;
 		FVector HitLocation = FVector::ZeroVector;
 		FVector HitNormal = FVector::ZeroVector;
@@ -1452,7 +1453,7 @@ FVector AShooterCharacter::GetVectorForJump() {
 
 			static FName Tag = FName(TEXT("WeaponTrace"));
 
-			// facciamo il ray tracing
+			// faccio partire il singolo raggio
 			FCollisionQueryParams TraceParams(Tag, true, this);
 			TraceParams.bTraceAsyncScene = true;
 			TraceParams.bReturnPhysicalMaterial = true;
@@ -1472,12 +1473,14 @@ FVector AShooterCharacter::GetVectorForJump() {
 
 		if (HitLocation != FVector::ZeroVector)
 		{
+			/* restituisco il valore del vettore da applicare durante il walljump*/
 			return HitNormal * 1200 + FVector::UpVector * 1500;
 		}
 	}
 	return FVector::ZeroVector;
 }
 
+/*metodo chiamato durante il salto per vedere se attivare il walljump*/
 void AShooterCharacter::WallJump()
 {
 	FVector JumpVector = GetVectorForJump();
