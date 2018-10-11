@@ -71,7 +71,9 @@ AShooterCharacter::AShooterCharacter(const FObjectInitializer& ObjectInitializer
 	bIsJetpackEnabled = true;
 
 	bIsFreezed = false;
-	
+
+	WallJumpHorHPower = 1500;
+	WallJumpUpPower = 1200;
 }
 
 void AShooterCharacter::PostInitializeComponents()
@@ -1474,7 +1476,7 @@ FVector AShooterCharacter::GetVectorForJump() {
 		if (HitLocation != FVector::ZeroVector)
 		{
 			/* restituisco il valore del vettore da applicare durante il walljump*/
-			return HitNormal * 1200 + FVector::UpVector * 1500;
+			return HitNormal * WallJumpHorHPower + FVector::UpVector * WallJumpUpPower;
 		}
 	}
 	return FVector::ZeroVector;
